@@ -6,6 +6,9 @@ const { getAllUsers, getUser, updateUser, removeUser } = require('../utils/users
 async function indexUsers(req, res) {
   try {
     const allUsers = await getAllUsers(req);
+    allUsers.forEach(u => {
+      delete u.password;
+    });
     res.status(200).json(allUsers);
 
   } catch (error) {
@@ -20,7 +23,7 @@ async function showUser(req, res) {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
+    delete user.password;
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error });
@@ -35,7 +38,7 @@ async function changeUser(req, res) {
     if (!updatedUser) {
       return res.status(400).json({ message: "Invalid Request. User not found" });
     }
-
+    delete updatedUser.password;
     res.status(200).json(updatedUser);
 
   } catch (error) {

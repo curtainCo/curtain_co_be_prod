@@ -59,16 +59,23 @@ const initPassport = require("./config/passport");
 const MongoStore = require("connect-mongo")(session);
 
 initPassport(passport);
+const sessionConfig = {
+  secret: process.env.SECRET_SESSION, // .env
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  cookie: {
+    expires: 3_600_000,
+  },
+};
+
+if (process.env.NODE_ENV === "production") {
+  sessionConfig.cookie.sameSite = 'none'; // allow cross-site usage of cookies
+  sessionConfig.cookie.secure = true; // secures cookies
+}
+
 app.use(
-  session({
-    secret: process.env.SECRET_SESSION, // .env
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    cookie: {
-      expires: 3_600_000,
-    },
-  })
+  session(sessionConfig)
 );
 app.use(flash());
 app.use(passport.initialize());
