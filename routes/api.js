@@ -13,8 +13,15 @@ const { singleUpload } = require('../config/file_upload');
 
 // HOME PAGE
 router.get('/', (req, res) => {
-  const userObj = { ...req.user._doc };
-  delete userObj.password;
+  let userObj = null;
+  if (req.user) {
+    userObj = { ...req.user._doc };
+    delete userObj.password;
+  }
+  else {
+    userObj = "No Logged in user";
+  }
+
   res.status(200).json({ welcome_message: 'Hello World!', user: userObj });
 });
 
