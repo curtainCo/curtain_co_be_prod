@@ -24,7 +24,7 @@ function login(req, res) {
 
 
     // REMEMBER ME COMP
-    if (req.body.remember) {
+    if (req.body.rememberMe) {
       req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
     } else {
       req.session.cookie.maxAge = 3_600_000;
