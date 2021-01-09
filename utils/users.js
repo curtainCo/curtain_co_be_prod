@@ -2,12 +2,12 @@ const { User } = require('../models/user');
 
 
 function getAllUsers(req) {
-  return User.find();
+  return User.find().lean();
 }
 
 function getUser(req) {
   const userId = req.params.id;
-  return User.findById(userId).populate('orders');
+  return User.findById(userId).populate('orders').lean();
 }
 
 function addUser(req) {
@@ -16,7 +16,7 @@ function addUser(req) {
 
 function updateUser(req) {
   const userId = req.params.id;
-  return User.findByIdAndUpdate(userId, req.body, { new: true });
+  return User.findByIdAndUpdate(userId, req.body, { new: true }).lean();
 }
 
 function removeUser(req) {
