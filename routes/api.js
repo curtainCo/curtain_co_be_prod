@@ -13,7 +13,9 @@ const { singleUpload } = require('../config/file_upload');
 
 // HOME PAGE
 router.get('/', (req, res) => {
-  res.status(200).json({ welcome_message: 'Hello World!', user: req.user });
+  const userObj = { ...req.user._doc };
+  delete userObj.password;
+  res.status(200).json({ welcome_message: 'Hello World!', user: userObj });
 });
 
 

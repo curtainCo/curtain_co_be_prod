@@ -11,7 +11,9 @@ async function register(req, res) {
       return res.status(400).json({ message: "Existing Email" });
     }
     const newUser = await addUser(req);
-    return res.status(201).json(newUser);
+    const newUserNoPassword = { ...newUser };
+    delete newUserNoPassword.password;
+    return res.status(201).json(newUserNoPassword);
   } catch (error) {
     return res.status(400).json({ message: "Invalid Fields" });
   }
