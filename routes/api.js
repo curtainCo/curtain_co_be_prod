@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     delete userObj.password;
   }
   else {
-    userObj = "No Logged in user";
+    userObj = null;
   }
 
   res.status(200).json({ welcome_message: 'Hello World!', user: userObj });
