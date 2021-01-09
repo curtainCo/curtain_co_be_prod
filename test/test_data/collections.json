@@ -1,0 +1,20 @@
+[
+	{
+		"name": "Summer Breeze",
+		"description": "Collection suited for the summer",
+		"imgUrl": "www.someimage.com",
+		"price": 999,
+		"trackTip": "Some Track tips here",
+		"fabricTip": "Some Fabric tips here",
+		"accessoryTip": "Some Accessory tips here"
+	},
+	{
+		"name": "Winter Breeze",
+		"description": "Collection suited for the winter",
+		"imgUrl": "www.someimage.com",
+		"price": 999,
+		"trackTip": "Some Track tips here",
+		"fabricTip": "Some Fabric tips here",
+		"accessoryTip": "Some Accessory tips here"
+	}
+]

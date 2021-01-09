@@ -1,0 +1,51 @@
+[
+	{
+		"email": "michael@email",
+		"password": "testpassword",
+		"title": "Ms.",
+		"fullName": "Michael Scarn",
+		"phone": "1234567892",
+		"companyName": "Michael Scott Paper Company",
+		"address1": "123 Next Block Street",
+		"suburb": "Sunnybank",
+		"state": "QLD",
+		"postcode": "4009",
+		"role": "admin"
+	},
+	{
+		"email": "gandalf@email",
+		"password": "testpassword",
+		"title": "Mr.",
+		"fullName": "Gandalf the Grey",
+		"phone": "1234567892",
+		"companyName": "Sauron Slayer Ltd",
+		"address1": "123 Next Block Street",
+		"suburb": "Sunnybank",
+		"state": "QLD",
+		"postcode": "4009"
+	},
+	{
+		"email": "bilbo@email",
+		"password": "testpassword",
+		"title": "Dr.",
+		"fullName": "Bilbo Baggins",
+		"phone": "1234567892",
+		"companyName": "Sauron Slayer Ltd",
+		"address1": "123 Next Block Street",
+		"suburb": "Sunnybank",
+		"state": "QLD",
+		"postcode": "4009"
+	},
+	{
+		"email": "andy@email",
+		"password": "testpassword",
+		"title": "Dr.",
+		"fullName": "Andy Dwyer",
+		"phone": "1234567892",
+		"companyName": "Comeback Society",
+		"address1": "123 Next Block Street",
+		"suburb": "Sunnybank",
+		"state": "QLD",
+		"postcode": "4009"
+	}
+]
