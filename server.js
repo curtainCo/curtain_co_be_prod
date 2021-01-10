@@ -69,11 +69,11 @@ const sessionConfig = {
   },
 };
 
-if (process.env.NODE_ENV === 'production') {
-  sessionConfig.cookie.httpOnly = true;
-  sessionConfig.cookie.sameSite = 'none'; // allow cross-site usage of cookies
-  sessionConfig.cookie.secure = true; // secures cookies
-}
+// if (process.env.NODE_ENV === 'production') {
+//   sessionConfig.cookie.httpOnly = true;
+//   sessionConfig.cookie.sameSite = 'none'; // allow cross-site usage of cookies
+//   sessionConfig.cookie.secure = true; // secures cookies
+// }
 
 app.use(
   session(sessionConfig)
