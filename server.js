@@ -66,6 +66,7 @@ const sessionConfig = {
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   proxy: true,
   cookie: {
+    httpOnly: false,
     expires: 3_600_000
   },
 };
