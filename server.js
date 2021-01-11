@@ -16,13 +16,13 @@ const port = process.env.PORT || 5000;
 // CORS usage
 const allowList = ['https://thecurtainco.netlify.app/', 'http://localhost:3000'];
 const corsOptions = {
-  credentials: true,
-  origin: function (origin, callback) {
-    // Check each url in allowList and see if it includes the origin (instead of matching exact string)
-    const allowListIndex = allowList.findIndex((url) => url.includes(origin));
-    console.log("found allowListIndex", allowListIndex);
-    callback(null, allowListIndex > -1);
-  }
+  credentials: true
+  // origin: function (origin, callback) {
+  //   // Check each url in allowList and see if it includes the origin (instead of matching exact string)
+  //   const allowListIndex = allowList.findIndex((url) => url.includes(origin));
+  //   console.log("found allowListIndex", allowListIndex);
+  //   callback(null, allowListIndex > -1);
+  // }
 };
 app.use(cors(corsOptions));
 
