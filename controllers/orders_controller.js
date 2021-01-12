@@ -1,5 +1,5 @@
-const { getAllOrders, addOrder, getOrder, updateOrder } = require('../utils/orders');
-const { addOrderToUser } = require('../utils/users');
+const { getAllOrders, addOrder, getOrder, updateOrder, removeOrder } = require('../utils/orders');
+const { addOrderToUser, removeOrderFromUser } = require('../utils/users');
 
 async function indexOrders(req, res) {
   try {
@@ -49,24 +49,24 @@ async function changeOrder(req, res) {
   }
 }
 
-// will not create a removeOrder route for taxing purposes?
-// async function deleteOrder(req, res) {
-//   try {
-//     const removedOrder = await removeOrder(req);
+async function deleteOrder(req, res) {
+  try {
+    const removedOrder = await removeOrder(req);
 
-//     if (!removedOrder) {
-//       return res.status(400).json({ message: "Order not found. Unable to delete Order." });
-//     }
-
-//     res.status(202).send(removedOrder);
-//   } catch (error) {
-//     res.status(500).json({ message: error });
-//   }
-// }
+    if (!removedOrder) {
+      return res.status(400).json({ message: "Order not found. Unable to delete Order." });
+    }
+    removeOrderFromUser(req.user, removedOrder._id);
+    res.status(202).json(removedOrder);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
 
 module.exports = {
   indexOrders,
   createOrder,
   showOrder,
-  changeOrder
+  changeOrder,
+  deleteOrder
 };

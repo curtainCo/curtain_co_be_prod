@@ -38,5 +38,15 @@ async function addOrderToUser(user, orderId) {
   }
 }
 
+async function removeOrderFromUser(user, orderId) {
+  try {
+    // filters the array of orderIds the user has
+    const updatedOrders = user.orders.filter(id => id != orderId);
+    await User.findByIdAndUpdate(user.id, { orders: updatedOrders }, { new: true });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser, getUserByEmail, addOrderToUser };
+
+module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser, getUserByEmail, addOrderToUser, removeOrderFromUser };
