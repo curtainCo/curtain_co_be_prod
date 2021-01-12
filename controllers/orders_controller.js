@@ -14,7 +14,7 @@ async function createOrder(req, res) {
   try {
     req.body.customer = req.user.id;
     const newOrder = await addOrder(req);
-    await addOrderToUser(req.user, req.body._id);
+    await addOrderToUser(req.user, newOrder._id);
     res.status(201).json(newOrder);
   } catch (error) {
     res.status(400).json({ message: "Invalid Fields", error: error });
