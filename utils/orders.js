@@ -11,7 +11,7 @@ function addOrder(req) {
 function getOrder(req) {
   const orderId = req.params.id;
   // return Order.findById(orderId).populate('customer');
-  return Order.findById(orderId);
+  return Order.findById(orderId).lean();
 }
 
 function updateOrder(req) {
@@ -19,11 +19,15 @@ function updateOrder(req) {
   return Order.findByIdAndUpdate(orderId, req.body, { new: true }).populate('customer');
 }
 
-// will not create a removeOrder route for taxing purposes?
+function removeOrder(req) {
+  const orderId = req.params.id;
+  return Order.findByIdAndDelete(orderId);
+}
 
 module.exports = {
   getAllOrders,
   addOrder,
   getOrder,
-  updateOrder
+  updateOrder,
+  removeOrder
 };
