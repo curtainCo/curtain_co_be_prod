@@ -4,12 +4,7 @@ const { UserSchema } = require('./user');
 
 
 // TODO - validations
-// TODO  - set _id from paypal's response: order_id 
 const Order = new Schema({
-  _id: {
-    type: String,
-    required: true
-  },
   // had to use referencing as embedding produces weird bugs
   customer: {
     type: Schema.Types.ObjectId,
