@@ -7,12 +7,12 @@ const {
     changeOrder,
     deleteOrder
 } = require("../controllers/orders_controller");
-const { checkAdmin, checkOrderOwner } = require("../middlewares/auth");
+const { checkAdmin, checkOrderOwnerOrAdmin } = require("../middlewares/auth");
 
 router.get("/", checkAdmin, indexOrders);
 router.post("/", createOrder);
 router.get("/:id", checkAdmin, showOrder);
-router.put("/:id", checkOrderOwner, changeOrder);
-router.delete("/:id", checkOrderOwner, deleteOrder);
+router.put("/:id", checkOrderOwnerOrAdmin, changeOrder);
+router.delete("/:id", checkOrderOwnerOrAdmin, deleteOrder);
 
 module.exports = router;

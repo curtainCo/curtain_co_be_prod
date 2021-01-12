@@ -35,7 +35,10 @@ function checkAdminOrOwner(req, res, next) {
         });
 }
 
-async function checkOrderOwner(req, res, next) {
+async function checkOrderOwnerOrAdmin(req, res, next) {
+    if (isAdmin(req.user)) return next();
+
+    // checks if current user orders includes the id of the order to be updated
     const userOrders = req.user.orders;
     if (userOrders.includes(req.params.id)) return next();
     return res.status(403)
@@ -50,5 +53,5 @@ module.exports = {
     checkNotAuthenticated,
     checkAdmin,
     checkAdminOrOwner,
-    checkOrderOwner
+    checkOrderOwnerOrAdmin
 };
