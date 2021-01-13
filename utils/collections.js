@@ -23,7 +23,11 @@ function getCollection(req) {
 
 function updateCollection(req) {
   const collectionId = req.params.id;
-  return Collection.findByIdAndUpdate(collectionId, req.body, { new: true });
+  return Collection.findByIdAndUpdate(collectionId, req.body, { new: true })
+    .populate('track')
+    .populate('fabric')
+    .populate('accessory')
+    .lean();
 }
 
 function removeCollection(req) {
