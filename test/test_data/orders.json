@@ -1,6 +1,5 @@
 [
 	{
-		"_id": "PAYPAL_ID01",
 		"totalPrice": 2000,
 		"paymentData": {
 			"paymentId": "Sample Payment ID"
@@ -30,7 +29,6 @@
 		]
 	},
 	{
-		"_id": "PAYPAL_ID02",
 		"totalPrice": 300,
 		"paymentData": {
 			"paymentId": "Sample Payment ID"
@@ -66,7 +64,6 @@
 		]
 	},
 	{
-		"_id": "PAYPAL_ID03",
 		"totalPrice": 2000,
 		"paymentData": {
 			"paymentId": "Sample Payment ID"

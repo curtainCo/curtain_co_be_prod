@@ -12,12 +12,12 @@ const ordersData = require('./test_data/orders.json');
 // Needs to login before seeding test database for customer attribute
 
 let orderId = null;
+let orderId2 = null;
 
 const admin = userData.find(user => user.role === 'admin');
 const user = userData.find(user => user.role === 'user');
 
 const newOrder = {
-  "_id": "PAYPAL_ID_NEW",
   "items": [
     {
       "name": "Bracket Covers",
@@ -87,18 +87,18 @@ describe('Admin Role Order Actions', () => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('object');
-        expect(res.body._id).to.equal('PAYPAL_ID01');
+        expect(res.body.totalPrice).to.equal(2000);
         done();
       });
   });
 
 
-  // PATCH existing order
+  // PUT existing order
   it('should update one order', (done) => {
     const order1 = {
       isProcessed: true
     };
-    agent.patch(`${orderRoute}/${orderId}`)
+    agent.put(`${orderRoute}/${orderId}`)
       .send(order1)
       .end((err, res) => {
         expect(err).to.be.null;
@@ -146,21 +146,37 @@ describe('User Role Orders Actions', () => {
     agent.post(`${orderRoute}/`)
       .send(newOrder)
       .end((err, res) => {
+        orderId2 = res.body._id;
         expect(err).to.be.null;
         expect(res).to.have.status(201);
         expect(res.body).to.be.an('object');
-        expect(res.body._id).to.equal('PAYPAL_ID_NEW');
+        expect(res.body.totalPrice).to.equal(99);
         done();
       });
   });
 
 
-  // NOT PATCH existing order
-  it('should NOT have access to update one order', (done) => {
-    agent.patch(`${orderRoute}/${orderId}`)
+  // PUT user owned existing order
+  it('should have access to update owned order', (done) => {
+    const order1 = {
+      isProcessed: false
+    };
+    agent.put(`${orderRoute}/${orderId2}`)
+      .send(order1)
       .end((err, res) => {
         expect(err).to.be.null;
-        expect(res).to.have.status(401);
+        expect(res).to.have.status(200);
+        expect(res.body.isProcessed).to.be.false;
+        done();
+      });
+  });
+
+  // DELETE user owned order
+  it('should have access to delete owned order', (done) => {
+    agent.delete(`${orderRoute}/${orderId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(202);
         done();
       });
   });
