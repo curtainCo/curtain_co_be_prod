@@ -16,6 +16,9 @@ router.get('/', (req, res) => {
   let userObj = null;
   if (req.user) {
     userObj = { ...req.user._doc };
+    let expiry = req.session.cookie._expires;
+    expiry = new Date(expiry);
+    userObj.cookie = expiry.getTime() - Date.now();
     delete userObj.password;
   }
   else {
