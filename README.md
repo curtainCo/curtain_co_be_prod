@@ -41,7 +41,7 @@ We may change these terms of use from time to time. Check before re-using any co
 
 #### Marie Gjorgioski
 
-Contact: <a linkTo="mailto:simosultan2020@email.com?">marie@marieg.com.au</a>
+Contact: <a linkTo="mailto:marie@marieg.com.au?">marie@marieg.com.au</a>
 
 > ### Developers - Team SiPhi
 
