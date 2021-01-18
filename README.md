@@ -6,7 +6,7 @@
 
 <br>
 
-Link to App: [thecurtainco.com.au](https://thecurtainco.com.au)
+Link to App: [https://thecurtainco.netlify.app/](https://thecurtainco.netlify.app/)
 Link to Server: [curtainco.herokuapp.com/api](https://curtainco.herokuapp.com/api/)  
 Front-End source code: [FE Repo](https://github.com/curtainCo/curtain_co_fe_prod)  
 Back-End source code: [BE Repo](https://github.com/curtainCo/curtain_co_be_prod)
@@ -15,7 +15,7 @@ Back-End source code: [BE Repo](https://github.com/curtainCo/curtain_co_be_prod)
 
 ## Description
 
-This is the REST API for [thecurtainco.com.au](https://thecurtainco.com.au). For more information on how this app is built, please see our [client-side GitHub repo](https://thecurtainco.com.au).
+This is the REST API for [https://thecurtainco.netlify.app/](https://thecurtainco.netlify.app/). For more information on how this app is built, please see our [client-side GitHub repo](https://github.com/curtainCo/curtain_co_fe_prod).
 
 ---
 
