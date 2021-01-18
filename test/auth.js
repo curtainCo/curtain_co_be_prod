@@ -102,7 +102,7 @@ describe('POST Login Information', () => {
 
 
   it("should login with valid credentials", (done) => {
-    userCreds.email = "testuser@email";
+    userCreds.email = "testuser@email.com";
     agent
       .post(`${authRoute}`)
       .type('form')
