@@ -8,8 +8,8 @@
 
 Link to App: [thecurtainco.com.au](https://thecurtainco.com.au)
 Link to Server: [curtainco.herokuapp.com/api](https://curtainco.herokuapp.com/api/)  
-Front-End source code: [FE Repo](https://github.com/SimoSultan/curtainco_fe)  
-Back-End source code: [BE Repo](https://github.com/philrussel21/curtain_co_BE)
+Front-End source code: [FE Repo](https://github.com/curtainCo/curtain_co_fe_prod)  
+Back-End source code: [BE Repo](https://github.com/curtainCo/curtain_co_be_prod)
 
 ---
 
