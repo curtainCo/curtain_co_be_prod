@@ -1,4 +1,5 @@
-const { getAllUsers, getUser, updateUser, removeUser } = require('../utils/users');
+const { getAllUsers, getUser, updateUser, removeUser, getUserByEmail, addResetPasswordToUser } = require('../utils/users');
+const { sendRecoveryEmail } = require('../config/mailer');
 
 // TODO: Fail cases and where to redirect/ what to send
 // back if so
@@ -62,10 +63,25 @@ async function deleteUser(req, res) {
   }
 }
 
+async function resetPassword(req, res) {
+  try {
+    const user = await getUserByEmail(req)
+    if (!user) {
+      return res.status(400).json({ message: "User not found." });
+    }
+    const userWithToken = await addResetPasswordToUser(user);
+    // Send an email here
+    const response = sendRecoveryEmail(userWithToken);
+    res.status(202).json({ message: "Recovery email sent." });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
 
 module.exports = {
   indexUsers,
   showUser,
   changeUser,
-  deleteUser
+  deleteUser,
+  resetPassword
 };
