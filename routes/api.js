@@ -10,7 +10,7 @@ const collectionRoutes = require('./collection_routes');
 const orderRoutes = require('./order_routes');
 const { checkAuthenticated, checkAdmin } = require('../middlewares/auth');
 const { singleUpload } = require('../config/file_upload');
-const { resetPassword } = require('../controllers/users_controllers')
+const { forgotPassword, resetPassword } = require('../controllers/users_controllers')
 
 // HOME PAGE
 router.get('/', (req, res) => {
@@ -49,7 +49,8 @@ router.post('/upload', checkAuthenticated, checkAdmin, (req, res) => {
 });
 
 // Route for forgot password email service
-router.post('/forgot-password', resetPassword);
+router.post('/forgot-password', forgotPassword);
+router.get('/reset', resetPassword);
 
 
 module.exports = router;
