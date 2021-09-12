@@ -90,6 +90,7 @@ async function resetPassword(req, res) {
     }
     res.status(200).json({
       // user exists
+      // TODO - figure out what details needs to be sent to the FE.
       message: "user exists"
     })
   } catch (error) {
