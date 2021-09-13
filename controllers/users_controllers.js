@@ -1,4 +1,5 @@
-const { getAllUsers, getUser, updateUser, removeUser } = require('../utils/users');
+const { getAllUsers, getUser, updateUser, removeUser, getUserByEmail, addResetPasswordToUser, getUserByToken } = require('../utils/users');
+const { sendRecoveryEmail } = require('../config/mailer');
 
 // TODO: Fail cases and where to redirect/ what to send
 // back if so
@@ -62,10 +63,46 @@ async function deleteUser(req, res) {
   }
 }
 
+async function forgotPassword(req, res) {
+  try {
+    const user = await getUserByEmail(req)
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    const userWithToken = await addResetPasswordToUser(user);
+    // Send an email here
+    const response = sendRecoveryEmail(userWithToken);
+    res.status(202).json({ message: "Recovery email sent." });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
+
+async function resetPassword(req, res) {
+  try {
+    const token = req.query.resetPasswordToken;
+    if (!Boolean(token)) {
+      return res.status(400).json({ message: "Bad Request. No token provided." })
+    }
+    const user = await getUserByToken(token);
+    if (!user) {
+      return res.status(404).json({ message: "User not found. Invalid token or reset password link expired." });
+    }
+    res.status(200).json({
+      // user exists
+      // TODO - figure out what details needs to be sent to the FE.
+      message: "user exists"
+    })
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
 
 module.exports = {
   indexUsers,
   showUser,
   changeUser,
-  deleteUser
+  deleteUser,
+  forgotPassword,
+  resetPassword
 };

@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const { User } = require('../models/user');
 
 
@@ -48,5 +49,34 @@ async function removeOrderFromUser(user, orderId) {
   }
 }
 
+async function addResetPasswordToUser(user) {
+  try {
+    const token = crypto.randomBytes(20).toString('hex');
+    console.log("TOKEN ---", token);
+    const updatedUser = user._doc;
+    updatedUser.resetPasswordToken = token
+    updatedUser.resetPasswordExpires = Date.now() + 3_600_000;
+    return User.findByIdAndUpdate(user.id, updatedUser, { new: true }).lean();
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser, getUserByEmail, addOrderToUser, removeOrderFromUser };
+async function getUserByToken(token) {
+  try {
+    return User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: {
+        $gt: Date.now()
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+module.exports = {
+  getAllUsers, getUser, addUser, updateUser, removeUser, getUserByEmail,
+  addOrderToUser, removeOrderFromUser, addResetPasswordToUser, getUserByToken
+};

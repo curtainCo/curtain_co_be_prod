@@ -62,6 +62,14 @@ const User = new Schema({
     minlength: 4,
     maxlength: 4
   },
+  resetPasswordToken: {
+    type: String,
+    default: "",
+  },
+  resetPasswordExpires: {
+    type: Date,
+    default: Date.now(),
+  },
 
   orders: [{ type: String, ref: "Orders" }]
 },
