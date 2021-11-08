@@ -10,12 +10,16 @@ async function register(req, res) {
         if (existingEmail) {
             return res.status(400).json({ message: "Existing Email" })
         }
-        const newUser = await addUser(req)
-        const newUserNoPassword = { ...newUser }
-        delete newUserNoPassword.password
-        return res.status(201).json(newUserNoPassword)
+        try {
+            const newUser = await addUser(req)
+            const newUserNoPassword = { ...newUser }
+            delete newUserNoPassword.password
+            return res.status(201).json(newUserNoPassword)
+        } catch (error) {
+            return res.status(400).json({ message: "Couldn't create new user" })
+        }
     } catch (error) {
-        return res.status(400).json({ message: "Invalid Fields" })
+        return res.status(400).json({ message: "Unable to register" })
     }
 }
 
@@ -24,7 +28,7 @@ const authenticate = passport.authenticate("local", { failureFlash: true })
 function login(req, res) {
     authenticate(req, res, () => {
         // REMEMBER ME COMP
-        if (req.body.rememberMe) {
+        if (req.user.rememberMe) {
             req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000 // Cookie expires after 30 days
         } else {
             req.session.cookie.maxAge = 3600000

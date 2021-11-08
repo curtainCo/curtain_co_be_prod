@@ -11,11 +11,12 @@ function getUser(req) {
 }
 
 function addUser(req) {
+    console.log(req.body)
     return User.create(req.body)
 }
 
 function updateUser(req) {
-    const userId = req.params.id
+    const userId = req.params.id || req.body.id
     return User.findByIdAndUpdate(userId, req.body, { new: true }).lean()
 }
 
@@ -60,12 +61,26 @@ async function addResetPasswordToUser(user) {
     try {
         const token = crypto.randomBytes(20).toString("hex")
         console.log("TOKEN ---", token)
-        const updatedUser = user._doc
-        updatedUser.resetPasswordToken = token
-        updatedUser.resetPasswordExpires = Date.now() + 3600000
-        return User.findByIdAndUpdate(user.id, updatedUser, {
-            new: true,
-        }).lean()
+        // const updatedUser = {
+        //     ...user,
+        //     resetPasswordToken: token,
+        //     resetPasswordExpires: Date.now() + 3600000
+        // }
+        // const updatedUser = user._doc
+        // updatedUser.email = user.email
+        // updatedUser.resetPasswordToken = token
+        // updatedUser.resetPasswordExpires = Date.now() + 3600000
+        const updatedUser = await User.findByIdAndUpdate(
+            user.id,
+            {
+                resetPasswordToken: token,
+                resetPasswordExpires: Date.now() + 3600000,
+            },
+            {
+                new: true,
+            }
+        ).lean()
+        return updatedUser
     } catch (error) {
         console.log(error)
     }
