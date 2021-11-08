@@ -52,7 +52,6 @@ router.post("/upload", checkAuthenticated, checkAdmin, (req, res) => {
 
 // Route for forgot password email service
 router.post("/forgot-password", forgotPassword)
-router.get("/reset-password", resetPassword)
-router.post("/reset-password", resetPassword)
+router.get("/reset", resetPassword)
 
 module.exports = router

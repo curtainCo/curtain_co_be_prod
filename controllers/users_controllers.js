@@ -73,60 +73,21 @@ async function deleteUser(req, res) {
 }
 
 async function forgotPassword(req, res) {
-    // find user
     try {
         const user = await getUserByEmail(req)
         if (!user) {
             return res.status(404).json({ message: "User not found." })
         }
         const userWithToken = await addResetPasswordToUser(user)
-
         // Send an email here
-        try {
-            const nodeMailerResponse = await sendRecoveryEmail(userWithToken)
-            // successful recovery email but details didn't match
-            // console.log(nodeMailerResponse)
-            // if (
-            //     !nodeMailerResponse ||
-            //     nodeMailerResponse.accepted[0] !== req.body.email
-            // ) {
-            //     console.log("here")
-            //     return res.status(400).json({
-            //         message:
-            //             "Nodemailer's accepted email did not match the request's email",
-            //     })
-            // }
-            res.status(202).json({ message: "Recovery email sent." })
-        } catch (error) {
-            console.log("here2")
-            return res.status(500).json({
-                message: "Recovery email not sent",
-                error,
-            })
-        }
+        const response = sendRecoveryEmail(userWithToken)
+        res.status(202).json({ message: "Recovery email sent." })
     } catch (error) {
-        console.log("here3")
-        return res.status(500).json({ message: error })
+        res.status(500).json({ message: error })
     }
-
-    return res
 }
 
 async function resetPassword(req, res) {
-    // reset password of user if post request
-    if (req.method === "POST") {
-        try {
-            const updatedUser = await updateUser(req)
-            if (!updatedUser) {
-                return res.status(400)
-            }
-            return res.status(200).json({ message: "User password updated" })
-        } catch (error) {
-            res.status(500).json({ message: error })
-        }
-    }
-
-    // return user if only checking token on restricted password reset page
     try {
         const token = req.query.resetPasswordToken
         if (!Boolean(token)) {
@@ -136,16 +97,16 @@ async function resetPassword(req, res) {
         }
         const user = await getUserByToken(token)
         if (!user) {
-            return res.status(404).json({
-                message:
-                    "User not found. Invalid token or reset password link expired.",
-            })
+            return res
+                .status(404)
+                .json({
+                    message:
+                        "User not found. Invalid token or reset password link expired.",
+                })
         }
-
-        // return user details
         res.status(200).json({
-            userId: user.id,
-            userEmail: user.email,
+            // user exists
+            // TODO - figure out what details needs to be sent to the FE.
             message: "user exists",
         })
     } catch (error) {
